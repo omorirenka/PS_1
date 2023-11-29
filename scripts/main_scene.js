@@ -12,22 +12,39 @@ class MainScene extends Phaser.Scene {
 
     create() {
         this.add.image(400, 225, 'back');
-        this.player = this.add.image(400, 300, 'taro');
-        this.player_direction = 1;
+        const player = this.physics.add.sprite(400, 250, 'taro');
+        this.player = player
+        this.player.angle = 0;
     }
 
-    update() {
-        if (this.player.x >= D_WIDTH - 50) this.player_direction = -1;
-        if (this.player.y >= D_HEIGHT - 50) this.player_direction = -1;
-        if (this.player.x <= 50) this.player_direction = 1;
-        if (this.player.y <= 50) this.player_direction = 1;
-        if (this.player_direction == 1) {
-            this.player.x += 5;
-            this.player.y += 5;
-        } else {
+    update(time, delta)  {
+        if (this.player.x >= D_WIDTH - 200) this.player_direction = -1;
+        if (this.player.x <= 250) this.player_direction = 1;
 
-            this.player.x -= 5;
-            this.player.y -= 5;
-        }
+        if (this.player_direction == 1) {
+            this.player.setVelocity(200, -200);
+        } else {
+            this.player.setVelocity(-200, 200);
+         }
+
+        // 回転角度を更新
+        // this.player.angle += 5;
+        // 回転角度を設定
+        // this.player.setAngle( this.player.angle );
+        // if (this.player.x >= D_WIDTH - 50) this.player_direction = -1;
+        // if (this.player.y >= D_HEIGHT - 50) this.player_direction = 1;
+        // if (this.player.x <= 50) this.player_direction = 1;
+        // if (this.player.y <= 50) this.player_direction = -1;
+        // if (this.player_direction == 1) {
+        //     this.player.angle += 5;
+        //     this.player.setAngle( this.player.angle );
+        //     this.player.x += 5;
+        //     this.player.y -= 5;
+        // } else {
+        //     this.player.angle += 5;
+        //     this.player.setAngle( this.player.angle );
+        //     this.player.x = 400;
+        //     this.player.y = 250;
+        // }
     }
 }

@@ -35,17 +35,17 @@ class MainScene extends Phaser.Scene {
 
         let cursors = this.input.keyboard.createCursorKeys();
         if (cursors.up.isDown) {
-            this.player1.y -= 5;
-            this.player2.y -= 5;
+            this.player1.y -= 50;
+            this.player2.y -= 50;
         } else if (cursors.down.isDown) {
-            this.player1.y += 5;
-            this.player2.y += 5;
+            this.player1.y += 50;
+            this.player2.y += 50;
         } else if (cursors.left.isDown) {
-            this.player1.x -= 5;
-            this.player2.x += 5;
+            this.player1.x -= 50;
+            this.player2.x += 50;
         } else if (cursors.right.isDown) {
-            this.player1.x += 5;
-            this.player2.x -= 5;
+            this.player1.x += 50;
+            this.player2.x -= 50;
         }
         
     }

@@ -8,13 +8,16 @@ class MainScene extends Phaser.Scene {
     preload() {
         this.load.image('back', 'assets/background.png');
         this.load.image('taro', 'assets/taro.png');
+        this.load.image('jiro', 'assets/jiro.png');
     }
 
     create() {
         this.add.image(400, 225, 'back');
-        const player = this.physics.add.sprite(400, 250, 'taro');
-        this.player = player
-        this.player.angle = 0;
+        const player1 = this.physics.add.sprite(500, 250, 'taro');
+        this.player1 = player1
+        const player2 = this.physics.add.sprite(300, 250, 'jiro');
+        this.player2 = player2
+        // this.player.angle = 0;
     }
 
     update(time, delta)  {
@@ -26,9 +29,24 @@ class MainScene extends Phaser.Scene {
         //     this.player.setVelocity(-200, 200);
         // }
 
-        this.player.setVelocity(200, -200);
-        this.player.angle += 5;
-        this.player.setAngle( this.player.angle );
+        // this.player.setVelocity(200, -200);
+        // this.player.angle += 5;
+        // this.player.setAngle( this.player.angle );
+
+        let cursors = this.input.keyboard.createCursorKeys();
+        if (cursors.up.isDown) {
+            this.player1.y -= 5;
+            this.player2.y -= 5;
+        } else if (cursors.down.isDown) {
+            this.player1.y += 5;
+            this.player2.y += 5;
+        } else if (cursors.left.isDown) {
+            this.player1.x -= 5;
+            this.player2.x += 5;
+        } else if (cursors.right.isDown) {
+            this.player1.x += 5;
+            this.player2.x -= 5;
+        }
         
     }
 }

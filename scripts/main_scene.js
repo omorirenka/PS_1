@@ -9,6 +9,7 @@ class MainScene extends Phaser.Scene {
         this.load.image('back', 'assets/background.png');
         this.load.image('taro', 'assets/taro.png');
         this.load.image('jiro', 'assets/jiro.png');
+        this.load.image('hanako', 'assets/hanako.png');
     }
 
     create() {
@@ -26,6 +27,11 @@ class MainScene extends Phaser.Scene {
         this.keys.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keys.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keys.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.keys.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+
+        this.image_x = Phaser.Math.Between(100, 400);
+        this.wasd_move(this.keys, this.image_x);
+        this.hanako = this.add.image(this.image_x, 100, 'hanako');
     }
 
     update(time, delta)  {
@@ -59,6 +65,8 @@ class MainScene extends Phaser.Scene {
         // テキストを更新する
         this.wasd_move(this.keys, this.a_Text);
         this.wasd_move(this.keys, this.s_Text);
+        // this.wasd_move(this.keys, this.image_x);
+      
     }
 
     wasd_move(keys, object){
@@ -69,7 +77,10 @@ class MainScene extends Phaser.Scene {
         }else if(keys.keyD.isDown){
             this.a_Text.setText('');
             this.s_Text.setText('');
+        }else if(keys.keyW.isDown){
+            this.hanako.destroy();
+            this.image_x = Phaser.Math.Between(100, 400);
+            this.hanako = this.add.image(this.image_x, 100, 'hanako');
         }
-
     }
 }

@@ -29,9 +29,18 @@ class MainScene extends Phaser.Scene {
         this.keys.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.keys.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 
+
         this.image_x = Phaser.Math.Between(100, 400);
-        this.wasd_move(this.keys, this.image_x);
         this.hanako = this.add.image(this.image_x, 100, 'hanako');
+
+        this.input.keyboard.on('keydown-W', function (event) {
+            this.hanako.destroy();
+            this.image_x = Phaser.Math.Between(100, 400);
+            this.hanako = this.add.image(this.image_x, 100, 'hanako');
+        }, this);
+
+        this._timeCounter = 0;
+        
     }
 
     update(time, delta)  {
@@ -65,10 +74,12 @@ class MainScene extends Phaser.Scene {
         // テキストを更新する
         this.wasd_move(this.keys, this.a_Text);
         this.wasd_move(this.keys, this.s_Text);
-        // this.wasd_move(this.keys, this.image_x);
+
+        if(this.countdounTimer) this.countdown(delta);
       
     }
 
+    // 1-7
     wasd_move(keys, object){
         if(keys.keyS.isDown){
             this.s_Text.setText('Hey!');
@@ -77,10 +88,36 @@ class MainScene extends Phaser.Scene {
         }else if(keys.keyD.isDown){
             this.a_Text.setText('');
             this.s_Text.setText('');
-        }else if(keys.keyW.isDown){
-            this.hanako.destroy();
-            this.image_x = Phaser.Math.Between(100, 400);
-            this.hanako = this.add.image(this.image_x, 100, 'hanako');
         }
     }
+
+    // countdown(delta){
+    //     // 毎フレーム事にタイマーを更新
+    //     this._timeCounter += delta;
+    //     // _timeCounterが1000になった1秒
+    //     if(this._timeCounter > 3000) {
+    //         // 1000ミリ秒経過したのでカウンターをリセット
+    //         this._timeCounter = 0;
+    //         // 残り時間を減らす
+    //         this.hanako.destroy();
+    //         this.image_x = Phaser.Math.Between(100, 400);
+    //         this.hanako = this.add.image(this.image_x, 100, 'hanako');
+    //     }
+    //     if(this._leftTime <= 0) {
+    //         // this._leftTime=30;
+    //         this.quitGame();
+    //     }
+    // }
+
+    // quitGame(){
+    //     this.add.text(D_WIDTH/3,D_HEIGHT*1/3, 'Game Over!', { fontSize: '32px', fill: '#CDC' });
+    //      // 色合いを変える
+    //     this.player1.setTint(0x999999);
+    //     this.player2.setTint(0xaaaaaa);
+    //       //物理エンジンを止める
+    //     this.physics.pause();
+    //     //カウントダウンタイマーを止めるためにフラグをfalseにする
+    //     this.countdounTimer = false;
+    //     return;
+    // }
 }
